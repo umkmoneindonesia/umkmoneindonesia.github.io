@@ -1,0 +1,247 @@
+/* --- Reset & Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Header --- */
+header {
+    background-color: #ffffff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a365d;
+}
+
+.logo span {
+    color: #2b6cb0;
+}
+
+.domain-text {
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Hero Section --- */
+.hero {
+    background: linear-gradient(135deg, #1a365d 0%, #2a4365 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 60px 0;
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* --- Packages Section --- */
+.packages {
+    padding: 60px 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    align-items: start;
+}
+
+/* --- Card Styles --- */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Highlight Paket Utama */
+.card.featured {
+    border: 2px solid #2b6cb0;
+    position: relative;
+}
+
+.card.featured .badge {
+    background-color: #2b6cb0;
+}
+
+.card-header {
+    padding: 30px 25px 20px 25px;
+    text-align: center;
+    background-color: #fafbfd;
+}
+
+.card-header h2 {
+    font-size: 22px;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #4a5568;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-body {
+    padding: 20px 25px;
+    flex-grow: 1;
+}
+
+.target {
+    font-size: 14px;
+    color: #4a5568;
+    margin-bottom: 15px;
+    min-height: 60px; /* Menjaga teks sejajar */
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #edf2f7;
+    margin-bottom: 15px;
+}
+
+.features {
+    list-style: none;
+}
+
+.features li {
+    font-size: 14px;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+    color: #4a5568;
+}
+
+/* Icon Checklist via CSS */
+.features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2f855a;
+    font-weight: bold;
+}
+
+.card-footer {
+    padding: 25px;
+    background-color: #fafbfd;
+    text-align: center;
+}
+
+/* --- Button Styles --- */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-primary {
+    background-color: #2b6cb0;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #2b4c7e;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #1a365d;
+    color: #a0aec0;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+.whatsapp-float {    
+    position: fixed;    
+    width: 60px;    
+    height: 60px;    
+    bottom: 20px;    
+    right: 20px;    
+    background-color: #25D366;    
+    color: #fff;    
+    border-radius: 50%;    
+    text-align: center;    
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);    
+    z-index: 9999;    
+    display: flex;    
+    justify-content: center;    
+    align-items: center;    
+    transition: transform 0.3s;
+}
+.whatsapp-float:hover {    
+    transform: scale(1.1);
+}
+.whatsapp-icon {    
+    width: 35px;    
+    height: 35px;
+}
+
+/* --- Responsive Breakpoint --- */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 26px;
+    }
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
