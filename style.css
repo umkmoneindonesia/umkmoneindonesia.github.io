@@ -236,6 +236,286 @@ footer {
     height: 35px;
 }
 
+.portfolio {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 28px;
+    color: #1a365d;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: 15px;
+    color: #718096;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+/* Membungkus Slider */
+.slider-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Sembunyikan Input Radio */
+.slider-wrapper input[type="radio"] {
+    display: none;
+}
+
+/* Track Utama Slider */
+.slider-container {
+    display: flex;
+    width: 300%; /* Total lebar dihitung dari jumlah slide (3 x 100%) */
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Elemen Tiap Slide */
+.slide-item {
+    width: 33.3333%;
+    position: relative;
+}
+
+.slide-item img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Teks Keterangan di Atas Gambar */
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(26, 54, 93, 0.95));
+    color: #ffffff;
+    padding: 40px 30px 30px 30px;
+    text-align: left;
+}
+
+.slide-caption h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.slide-caption p {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* Area Kontrol Navigasi Lingkaran (Dots) */
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot-btn {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot-btn:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Logika Animasi Pergeseran Menggunakan CSS Selector */
+#slide1:checked ~ .slider-container { transform: translateX(0%); }
+#slide2:checked ~ .slider-container { transform: translateX(-33.3333%); }
+#slide3:checked ~ .slider-container { transform: translateX(-66.6666%); }
+
+/* Indikator Dot yang Aktif */
+#slide1:checked ~ .slider-dots .dot-btn:nth-child(1),
+#slide2:checked ~ .slider-dots .dot-btn:nth-child(2),
+#slide3:checked ~ .slider-dots .dot-btn:nth-child(3) {
+    background-color: #ffffff;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* --- How It Works Section --- */
+.how-it-works {
+    padding: 60px 0;
+    background-color: #f7fafc; /* Latar belakang abu-abu sangat muda agar kontras dengan portfolio */
+    text-align: center;
+}
+
+.workflow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 40px;
+    position: relative;
+}
+
+.workflow-step {
+    flex: 1;
+    position: relative;
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.workflow-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Lingkaran Angka */
+.step-number {
+    width: 45px;
+    height: 45px;
+    background-color: #1a365d; /* Menggunakan warna utama navy */
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 10px rgba(26, 54, 93, 0.3);
+}
+
+.workflow-step h3 {
+    font-size: 16px;
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.workflow-step p {
+    font-size: 13px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* --- Why Choose Us Section --- */
+.why-choose-us {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.benefit-card {
+    background: #f8fafc; /* Warna latar kartu abu-abu tipis agar kontras dengan latar section putih */
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: left;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(26, 54, 93, 0.08);
+    border-color: #1a365d; /* Mengubah warna border menjadi navy saat di-hover */
+}
+
+.benefit-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.benefit-card h3 {
+    font-size: 18px;
+    color: #1a365d; /* Menggunakan warna navy utama */
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.benefit-card p {
+    font-size: 13.5px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Penyesuaian Responsif untuk Mobile Layar Kecil */
+@media (max-width: 480px) {
+    .benefit-card {
+        text-align: center; /* Mengubah teks menjadi rata tengah khusus di HP kecil */
+    }
+}
+
+/* Membuat efek panah penghubung antar alur pada tampilan Desktop */
+@media (min-width: 992px) {
+    .workflow-step:not(:last-child)::after {
+        content: "➔";
+        position: absolute;
+        top: 35px;
+        right: -20px;
+        font-size: 20px;
+        color: #cbd5e0;
+        z-index: 2;
+    }
+}
+
+/* Responsif untuk Tampilan Handphone (Alur berubah jadi vertikal ke bawah) */
+@media (max-width: 991px) {
+    .workflow-container {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .workflow-step {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    /* Mengubah arah panah ke bawah untuk tampilan mobile */
+    .workflow-step:not(:last-child)::after {
+        content: "⬇";
+        position: absolute;
+        bottom: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #cbd5e0;
+    }
+}
+
+/* Responsif untuk Tampilan Mobile */
+@media (max-width: 768px) {
+    .section-title { font-size: 24px; }
+    .slide-item img { height: 300px; }
+    .slide-caption { padding: 30px 20px 45px 20px; }
+    .slide-caption h3 { font-size: 16px; }
+    .slide-caption p { font-size: 12px; }
+    .slider-dots { right: 50%; transform: translateX(50%); bottom: 15px; }
+}
+
 /* --- Responsive Breakpoint --- */
 @media (max-width: 768px) {
     .hero h1 {
