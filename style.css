@@ -201,41 +201,73 @@ hr {
     background-color: #2b4c7e;
 }
 
-/* --- Footer --- */
-footer {
-    background-color: #1a365d;
-    color: #a0aec0;
+/* --- Section Layanan Lainnya (TAMBAHAN BARU) --- */
+.other-services {
+    padding: 60px 0;
+    background-color: #ffffff;
     text-align: center;
-    padding: 25px 0;
-    font-size: 14px;
+}
+
+.other-services .grid-container {
+    display: flex;
+    justify-content: center; /* Membuat kartu berada di tengah jika hanya ada 1 kartu */
+}
+
+.other-services .card {
+    max-width: 450px; /* Batas lebar optimal agar tampilan kartu tidak terlalu lebar */
+    width: 100%;
+}
+
+/* --- Why Choose Us Section --- */
+.why-choose-us {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
     margin-top: 40px;
 }
 
-.whatsapp-float {    
-    position: fixed;    
-    width: 60px;    
-    height: 60px;    
-    bottom: 20px;    
-    right: 20px;    
-    background-color: #25D366;    
-    color: #fff;    
-    border-radius: 50%;    
-    text-align: center;    
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);    
-    z-index: 9999;    
-    display: flex;    
-    justify-content: center;    
-    align-items: center;    
-    transition: transform 0.3s;
-}
-.whatsapp-float:hover {    
-    transform: scale(1.1);
-}
-.whatsapp-icon {    
-    width: 35px;    
-    height: 35px;
+.benefit-card {
+    background: #f8fafc; /* Warna latar kartu abu-abu tipis agar kontras dengan latar section putih */
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: left;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
 }
 
+.benefit-card:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(26, 54, 93, 0.08);
+    border-color: #1a365d; /* Mengubah warna border menjadi navy saat di-hover */
+}
+
+.benefit-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.benefit-card h3 {
+    font-size: 18px;
+    color: #1a365d; /* Menggunakan warna navy utama */
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.benefit-card p {
+    font-size: 13.5px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* --- Portfolio Section --- */
 .portfolio {
     padding: 60px 0;
     background-color: #ffffff;
@@ -411,63 +443,51 @@ footer {
     line-height: 1.6;
 }
 
-/* --- Why Choose Us Section --- */
-.why-choose-us {
-    padding: 60px 0;
-    background-color: #ffffff;
+/* --- Footer & WhatsApp Floating Button --- */
+footer {
+    background-color: #1a365d;
+    color: #a0aec0;
     text-align: center;
-}
-
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 25px;
+    padding: 25px 0;
+    font-size: 14px;
     margin-top: 40px;
 }
 
-.benefit-card {
-    background: #f8fafc; /* Warna latar kartu abu-abu tipis agar kontras dengan latar section putih */
-    padding: 30px 20px;
-    border-radius: 12px;
-    text-align: left;
-    border: 1px solid #e2e8f0;
-    transition: all 0.3s ease;
+.whatsapp-float {    
+    position: fixed;    
+    width: 60px;    
+    height: 60px;    
+    bottom: 20px;    
+    right: 20px;    
+    background-color: #25D366;    
+    color: #fff;    
+    border-radius: 50%;    
+    text-align: center;    
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);    
+    z-index: 9999;    
+    display: flex;    
+    justify-content: center;    
+    align-items: center;    
+    transition: transform 0.3s;
 }
 
-.benefit-card:hover {
-    transform: translateY(-5px);
-    background: #ffffff;
-    box-shadow: 0 10px 25px rgba(26, 54, 93, 0.08);
-    border-color: #1a365d; /* Mengubah warna border menjadi navy saat di-hover */
+.whatsapp-float:hover {    
+    transform: scale(1.1);
 }
 
-.benefit-icon {
-    font-size: 32px;
-    margin-bottom: 15px;
-    display: inline-block;
+.whatsapp-icon {    
+    width: 35px;    
+    height: 35px;
 }
 
-.benefit-card h3 {
-    font-size: 18px;
-    color: #1a365d; /* Menggunakan warna navy utama */
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.benefit-card p {
-    font-size: 13.5px;
-    color: #4a5568;
-    line-height: 1.6;
-}
-
-/* Penyesuaian Responsif untuk Mobile Layar Kecil */
+/* --- Responsive Media Queries --- */
 @media (max-width: 480px) {
     .benefit-card {
         text-align: center; /* Mengubah teks menjadi rata tengah khusus di HP kecil */
     }
 }
 
-/* Membuat efek panah penghubung antar alur pada tampilan Desktop */
+/* Efek panah penghubung antar alur pada tampilan Desktop */
 @media (min-width: 992px) {
     .workflow-step:not(:last-child)::after {
         content: "➔";
@@ -480,7 +500,7 @@ footer {
     }
 }
 
-/* Responsif untuk Tampilan Handphone (Alur berubah jadi vertikal ke bawah) */
+/* Responsif Alur Kerja (Vertikal pada Layar HP/Tablet) */
 @media (max-width: 991px) {
     .workflow-container {
         flex-direction: column;
@@ -494,7 +514,6 @@ footer {
         padding: 20px;
     }
     
-    /* Mengubah arah panah ke bawah untuk tampilan mobile */
     .workflow-step:not(:last-child)::after {
         content: "⬇";
         position: absolute;
@@ -506,17 +525,7 @@ footer {
     }
 }
 
-/* Responsif untuk Tampilan Mobile */
-@media (max-width: 768px) {
-    .section-title { font-size: 24px; }
-    .slide-item img { height: 300px; }
-    .slide-caption { padding: 30px 20px 45px 20px; }
-    .slide-caption h3 { font-size: 16px; }
-    .slide-caption p { font-size: 12px; }
-    .slider-dots { right: 50%; transform: translateX(50%); bottom: 15px; }
-}
-
-/* --- Responsive Breakpoint --- */
+/* Penyesuaian Responsif Umum Mobile */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 26px;
@@ -524,4 +533,10 @@ footer {
     .grid-container {
         grid-template-columns: 1fr;
     }
+    .section-title { font-size: 24px; }
+    .slide-item img { height: 300px; }
+    .slide-caption { padding: 30px 20px 45px 20px; }
+    .slide-caption h3 { font-size: 16px; }
+    .slide-caption p { font-size: 12px; }
+    .slider-dots { right: 50%; transform: translateX(50%); bottom: 15px; }
 }
