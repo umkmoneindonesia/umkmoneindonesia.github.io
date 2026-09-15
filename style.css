@@ -201,7 +201,7 @@ hr {
     background-color: #2b4c7e;
 }
 
-/* --- Section Layanan Lainnya (TAMBAHAN BARU) --- */
+/* --- Section Layanan Lainnya --- */
 .other-services {
     padding: 60px 0;
     background-color: #ffffff;
@@ -216,6 +216,54 @@ hr {
 .other-services .card {
     max-width: 450px; /* Batas lebar optimal agar tampilan kartu tidak terlalu lebar */
     width: 100%;
+}
+
+/* --- Section Teknologi yang Kami Pakai (TAMBAHAN BARU) --- */
+.tech-stack {
+    padding: 60px 0;
+    background-color: #f7fafc;
+    text-align: center;
+}
+
+.tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.tech-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 25px;
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    border-color: #2b6cb0;
+}
+
+.tech-card img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.tech-card span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2d3748;
 }
 
 /* --- Why Choose Us Section --- */
@@ -233,7 +281,7 @@ hr {
 }
 
 .benefit-card {
-    background: #f8fafc; /* Warna latar kartu abu-abu tipis agar kontras dengan latar section putih */
+    background: #f8fafc; /* Warna latar kartu abu-abu tipis */
     padding: 30px 20px;
     border-radius: 12px;
     text-align: left;
@@ -245,7 +293,7 @@ hr {
     transform: translateY(-5px);
     background: #ffffff;
     box-shadow: 0 10px 25px rgba(26, 54, 93, 0.08);
-    border-color: #1a365d; /* Mengubah warna border menjadi navy saat di-hover */
+    border-color: #1a365d;
 }
 
 .benefit-icon {
@@ -256,7 +304,7 @@ hr {
 
 .benefit-card h3 {
     font-size: 18px;
-    color: #1a365d; /* Menggunakan warna navy utama */
+    color: #1a365d;
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -386,7 +434,7 @@ hr {
 /* --- How It Works Section --- */
 .how-it-works {
     padding: 60px 0;
-    background-color: #f7fafc; /* Latar belakang abu-abu sangat muda agar kontras dengan portfolio */
+    background-color: #f7fafc;
     text-align: center;
 }
 
@@ -418,7 +466,7 @@ hr {
 .step-number {
     width: 45px;
     height: 45px;
-    background-color: #1a365d; /* Menggunakan warna utama navy */
+    background-color: #1a365d;
     color: #ffffff;
     font-size: 18px;
     font-weight: 700;
@@ -483,7 +531,11 @@ footer {
 /* --- Responsive Media Queries --- */
 @media (max-width: 480px) {
     .benefit-card {
-        text-align: center; /* Mengubah teks menjadi rata tengah khusus di HP kecil */
+        text-align: center;
+    }
+    .tech-card {
+        width: calc(50% - 15px); /* Tampil 2 kolom ramping pada HP berlayar kecil */
+        padding: 15px 10px;
     }
 }
 
