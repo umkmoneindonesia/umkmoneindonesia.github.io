@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Skor CV ATS - One UMKM</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Gaya khusus untuk halaman analisis CV */
+        .checker-section { padding: 50px 0; }
+        .checker-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #1a365d; }
+        .form-group textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .result-box {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .score-circle {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2b6cb0;
+            margin: 10px 0;
+        }
+        .feedback-list { text-align: left; margin-top: 15px; }
+        .feedback-list li { margin-bottom: 8px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">One<span>UMKM</span></div>
+            <p class="domain-text"><a href="index.html" style="text-decoration:none; color:inherit;">← Kembali ke Beranda</a></p>
+        </div>
+    </header>
+
+    <section class="checker-section">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Cek Skor Keterbacaan CV ATS</h2>
+            <p class="section-subtitle" style="text-align: center;">Tempelkan teks CV Anda dan deskripsi pekerjaan untuk melihat seberapa cocok CV Anda.</p>
+
+            <div class="checker-box">
+                <div class="form-group">
+                    <label for="jobDesc">1. Deskripsi Pekerjaan / Kualifikasi (Job Description)</label>
+                    <textarea id="jobDesc" placeholder="Tempelkan syarat/kualifikasi lowongan kerja di sini..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cvText">2. Isi Teks CV Anda</label>
+                    <textarea id="cvText" placeholder="Tempelkan seluruh teks dari isi CV Anda di sini..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="analyzeCV()">Analisis Skor CV Sekarang</button>
+
+                <!-- Box Hasil -->
+                <div id="resultBox" class="result-box">
+                    <h3>Hasil Analisis CV Anda</h3>
+                    <div class="score-circle" id="scoreDisplay">0%</div>
+                    <p id="scoreSummary"></p>
+                    
+                    <div class="feedback-list">
+                        <h4>Catatan & Rekomendasi:</h4>
+                        <ul id="feedbackList"></ul>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <p style="font-size: 14px; color: #4a5568;">Ingin CV Anda ditata ulang agar profesional & lolos seleksi HRD?</p>
+                        <a href="https://wa.me/62895633914257?text=Halo%20OneUMKM,%20saya%20ingin%20membantu%20rewrite%20CV%20saya" class="btn btn-primary" style="display:inline-block; width:auto; padding: 10px 20px; margin-top:10px;" target="_blank">Pesan Jasa Rewrite CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // 1. DATABASE ACTION VERBS (KATA KERJA AKSI)
+    const actionVerbsDB = {
+        id: [
+            'mengembangkan', 'merancang', 'menganalisis', 'memimpin', 'mengoptimalkan', 
+            'menerapkan', 'mengelola', 'meningkatkan', 'mengoordinasikan', 'memproduksi', 
+            'membangun', 'mengevaluasi', 'merevisi', 'mendesain', 'mengimplementasikan',
+            'mendelegasikan', 'mengeksplorasi', 'memfasilitasi', 'mengarahkan', 'menyusun'
+        ],
+        en: [
+            'managed', 'developed', 'created', 'designed', 'increased', 'improved', 
+            'led', 'engineered', 'implemented', 'optimized', 'coordinated', 'analyzed',
+            'spearheaded', 'orchestrated', 'streamlined', 'oversaw', 'executed', 'formulated',
+            'championed', 'established', 'piloted', 'accelerated', 'transformed'
+        ]
+    };
+
+    // 2. DATABASE KATA PASIF/LEMAH & SARAN PENGGANTINYA (ID & EN)
+    const weakWordsMap = {
+        id: {
+            'bertanggung jawab': 'Ganti dengan kata aktif seperti <strong>"Mengelola"</strong>, <strong>"Memimpin"</strong>, atau <strong>"Mengoordinasikan"</strong>.',
+            'membantu': 'Ganti dengan kata yang lebih kuat seperti <strong>"Mendukung"</strong>, <strong>"Memfasilitasi"</strong>, atau <strong>"Mengolaborasikan"</strong>.',
+            'mengurusi': 'Ganti dengan <strong>"Mengelola"</strong>, <strong>"Mengorganisir"</strong>, atau <strong>"Supervisi"</strong>.',
+            'melakukan': 'Ganti dengan kata yang spesifik seperti <strong>"Mengeksekusi"</strong>, <strong>"Menerapkan"</strong>, atau <strong>"Mengimplementasikan"</strong>.'
+        },
+        en: {
+            'responsible for': 'Ganti dengan action verb kuat seperti <strong>"Managed"</strong>, <strong>"Led"</strong>, <strong>"Spearheaded"</strong>, atau <strong>"Oversaw"</strong>.',
+            'worked on': 'Ganti dengan kata yang lebih spesifik seperti <strong>"Developed"</strong>, <strong>"Engineered"</strong>, atau <strong>"Executed"</strong>.',
+            'helped with': 'Ganti dengan <strong>"Assisted in"</strong>, <strong>"Collaborated on"</strong>, atau <strong>"Facilitated"</strong>.',
+            'handled': 'Ganti dengan <strong>"Managed"</strong>, <strong>"Resolved"</strong>, atau <strong>"Supervised"</strong>.',
+            'in charge of': 'Ganti dengan <strong>"Directed"</strong>, <strong>"Headheaded"</strong>, atau <strong>"Administered"</strong>.',
+            'tasked with': 'Ganti dengan <strong>"Appointed to"</strong>, <strong>"Delegated to"</strong>, atau <strong>"Assigned to"</strong>.'
+        }
+    };
+
+    function analyzeCV() {
+        const jobText = document.getElementById('jobDesc').value.toLowerCase();
+        const cvText = document.getElementById('cvText').value.toLowerCase();
+        
+        if (!jobText || !cvText) {
+            alert('Silakan isi kedua kolom (Deskripsi Pekerjaan dan Isi CV) terlebih dahulu.');
+            return;
+        }
+
+        // --- A. DETEKSI BAHASA CV (INDONESIA ATAU INGGRIS) ---
+        const englishIndicators = ['experience', 'education', 'skills', 'summary', 'responsibilities', 'project', 'work'];
+        let englishCount = 0;
+        englishIndicators.forEach(word => {
+            if (cvText.includes(word)) englishCount++;
+        });
+
+        // Jika ditemukan indikator bahasa inggris >= 2, anggap sebagai CV Bahasa Inggris
+        const detectedLang = englishCount >= 2 ? 'en' : 'id';
+        const langName = detectedLang === 'en' ? 'Bahasa Inggris' : 'Bahasa Indonesia';
+
+        // --- B. ANALISIS KATA KUNCI (JOB DESCRIPTION MATCH) ---
+        const stopWords = ['dan', 'atau', 'di', 'ke', 'dari', 'yang', 'untuk', 'dengan', 'pada', 'adalah', 'akan', 'bisa', 'in', 'to', 'for', 'and', 'or', 'with', 'the', 'of', 'a', 'an'];
+        const jobWords = jobText.match(/\b[a-zA-Z]{3,}\b/g) || [];
+        const uniqueKeywords = [...new Set(jobWords.filter(word => !stopWords.includes(word)))];
+
+        let matchedKeywords = [];
+        let missingKeywords = [];
+
+        uniqueKeywords.forEach(keyword => {
+            if (cvText.includes(keyword)) {
+                matchedKeywords.push(keyword);
+            } else {
+                missingKeywords.push(keyword);
+            }
+        });
+
+        let keywordScore = uniqueKeywords.length > 0 ? (matchedKeywords.length / uniqueKeywords.length) * 100 : 0;
+
+        // --- C. ANALISIS ACTION VERBS SESUAI BAHASA ---
+        let currentVerbs = actionVerbsDB[detectedLang];
+        let foundActionVerbs = [];
+
+        currentVerbs.forEach(verb => {
+            if (cvText.includes(verb)) {
+                foundActionVerbs.push(verb);
+            }
+        });
+
+        // --- D. ANALISIS KATA PASIF / LEMAH SESUAI BAHASA ---
+        let currentWeakMap = weakWordsMap[detectedLang];
+        let weakWordSuggestions = [];
+
+        for (let weakWord in currentWeakMap) {
+            if (cvText.includes(weakWord)) {
+                weakWordSuggestions.push(`⚠️ Ditemukan kata/frasa pasif "<em>${weakWord}</em>": ${currentWeakMap[weakWord]}`);
+            }
+        }
+
+        // --- E. ANALISIS STRUKTUR ATS DASAR ---
+        let structureScore = 0;
+        let feedback = [];
+
+        // Informasi Bahasa Terdeteksi
+        feedback.push(`🌐 <strong>Sistem Mendeteksi CV Berbahasa:</strong> ${langName}`);
+
+        if (cvText.includes('pengalaman') || cvText.includes('experience')) structureScore += 25;
+        else feedback.push('❌ Section <strong>"Pengalaman Kerja / Experience"</strong> tidak terdeteksi secara jelas.');
+
+        if (cvText.includes('pendidikan') || cvText.includes('education')) structureScore += 25;
+        else feedback.push('❌ Section <strong>"Pendidikan / Education"</strong> tidak terdeteksi.');
+
+        if (cvText.includes('keahlian') || cvText.includes('skills')) structureScore += 25;
+        else feedback.push('❌ Section <strong>"Keahlian / Skills"</strong> tidak terdeteksi.');
+
+        if (cvText.length > 300) structureScore += 25;
+        else feedback.push('⚠️ Isi CV terlalu singkat. Tambahkan detail deskripsi pengalaman Anda.');
+
+        // --- F. HITUNG SKOR FINAL ---
+        let actionVerbScore = Math.min((foundActionVerbs.length / 5) * 100, 100);
+        let totalScore = Math.round((keywordScore * 0.4) + (structureScore * 0.3) + (actionVerbScore * 0.3));
+
+        // --- G. TAMPILKAN HASIL ---
+        document.getElementById('resultBox').style.display = 'block';
+        document.getElementById('scoreDisplay').innerText = totalScore + '%';
+
+        let summaryText = '';
+        if (totalScore >= 75) {
+            summaryText = 'Sangat Bagus! CV Anda memiliki tingkat kecocokan yang tinggi dengan lowongan ini.';
+            document.getElementById('scoreDisplay').style.color = '#2f855a'; // Hijau
+        } else if (totalScore >= 50) {
+            summaryText = 'Cukup Baik, namun ada beberapa kata kunci & pemilihan kata yang masih bisa dioptimalkan.';
+            document.getElementById('scoreDisplay').style.color = '#dd6b20'; // Oranye
+        } else {
+            summaryText = 'Skor Kurang Optimal. Disarankan menambah kata kunci dan memperkuat deskripsi pencapaian Anda.';
+            document.getElementById('scoreDisplay').style.color = '#e53e3e'; // Merah
+        }
+        document.getElementById('scoreSummary').innerText = summaryText;
+
+        // Feedback Action Verbs
+        if (foundActionVerbs.length >= 3) {
+            feedback.push(`✅ Bagus! Terdeteksi kata kerja aksi (Action Verbs) yang kuat: <em>${foundActionVerbs.join(', ')}</em>.`);
+        } else {
+            const verbExamples = detectedLang === 'en' ? 'Spearheaded, Managed, Led, Optimized' : 'Mengembangkan, Mengelola, Memimpin, Mengoptimalkan';
+            feedback.push(`⚠️ Gunakan lebih banyak <strong>Action Verbs (Kata Kerja Aksi)</strong> seperti <em>${verbExamples}</em> agar CV terkesan profesional.`);
+        }
+
+        // Feedback Kata Pasif / Lemah
+        if (weakWordSuggestions.length > 0) {
+            weakWordSuggestions.forEach(sug => feedback.push(sug));
+        }
+
+        // Feedback Keyword
+        if (missingKeywords.length > 0) {
+            feedback.push('💡 Kata kunci penting dari job description yang belum ditemukan di CV Anda: <strong>' + missingKeywords.slice(0, 8).join(', ') + '</strong>');
+        } else {
+            feedback.push('✨ Semua kata kunci utama dari lowongan sudah ada di dalam CV Anda!');
+        }
+
+        // Render ke HTML
+        const feedbackUl = document.getElementById('feedbackList');
+        feedbackUl.innerHTML = '';
+        feedback.forEach(item => {
+            let li = document.createElement('li');
+            li.innerHTML = item;
+            feedbackUl.appendChild(li);
+        });
+    }
+    </script>
+
+</body>
+</html>
